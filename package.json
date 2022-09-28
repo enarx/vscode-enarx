@@ -12,7 +12,8 @@
   "activationEvents": [
     "onCommand:vscode-enarx.scafoldEnarxToml",
     "onCommand:vscode-enarx.codexPull",
-    "workspaceContains:**/Enarx.toml"
+    "workspaceContains:**/Enarx.toml",
+    "workspaceContains:*/Enarx.toml"
   ],
   "main": "./dist/extension.js",
   "contributes": {

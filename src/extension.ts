@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
-import * as cp from 'child_process';
+import {exec} from './exec';
+import {installEnarxProceedure} from './enarxInstall';
 import * as fs from 'fs';
 import { IValidationProvider } from './validationProvider/validationProvider';
 import { TomlValidationProvider } from './validationProvider/tomlValidationProvider';
@@ -7,8 +8,11 @@ import { ICodexProvider } from './CodexProvider/codexProvider';
 import { GithubCodexProvider } from './CodexProvider/GithubCodexProvider';
 import { ENARX_TOML_EXAMPLE } from './EnarxTomlExample';
 
-
 export function activate(context: vscode.ExtensionContext) {
+	vscode.window.showInformationMessage('Enarx entension activated');
+	let channel = vscode.window.createOutputChannel('Enarx Extension Output channel');
+	channel.show();
+	installEnarxProceedure(context, channel);
 	let scafoldEnarxToml = vscode.commands.registerCommand('vscode-enarx.scafoldEnarxToml', () => {
 		if (vscode.workspace.workspaceFolders) {
 			try {
@@ -44,9 +48,9 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.window.showInformationMessage("Pulling code for: " + selectedRepo.label);
 				try {
 					const commandToExtract = `curl https://codeload.github.com/enarx/codex/tar.gz/refs/heads/main | tar -zx --directory ${vscode.workspace.workspaceFolders[0].uri.fsPath} ./codex-main/${selectedRepo.label}`;
-					cp.execSync(commandToExtract);
-					cp.execSync(`mv ${vscode.workspace.workspaceFolders[0].uri.fsPath}/codex-main/${selectedRepo.label}/* ${vscode.workspace.workspaceFolders[0].uri.fsPath}`);
-					cp.execSync(`rm -rf ${vscode.workspace.workspaceFolders[0].uri.fsPath}/codex-main`);
+					await exec(commandToExtract, {}, channel);
+					await exec(`rsync -a ${vscode.workspace.workspaceFolders[0].uri.fsPath}/codex-main/${selectedRepo.label}/* ${vscode.workspace.workspaceFolders[0].uri.fsPath}`, {}, channel);
+					await exec(`rm -rf ${vscode.workspace.workspaceFolders[0].uri.fsPath}/codex-main`, {}, channel);
 					vscode.window.showInformationMessage(`Workspace ready with ${selectedRepo.label}`);
 				} catch (e) {
 					vscode.window.showInformationMessage("Oops! we can't automatically setup the workspace for you.", "Configure Manually", "Do it later").then(select => {
