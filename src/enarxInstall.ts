@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { exec } from './exec';
 
-function urlProvider(arch: string): string {
+export function urlProvider(arch: string): string {
     if (arch === 'arm64') {
         return 'https://github.com/enarx/enarx/releases/download/v0.6.4/enarx-x86_64-unknown-linux-musl';
     } else if (arch === 'x64') {
@@ -12,7 +12,7 @@ function urlProvider(arch: string): string {
 
 export async function installEnarxProceedure(context: vscode.ExtensionContext, channel: vscode.OutputChannel) {
     try {
-        let { stdout } = await exec('enar platform info -j', {}, channel);
+        let { stdout } = await exec('enarx platform info -j', {}, channel);
         let outputJSON = JSON.parse(stdout);
         console.log(outputJSON);
     } catch (exception: any) {
@@ -53,6 +53,7 @@ export async function installEnarxProceedure(context: vscode.ExtensionContext, c
                         let path = stdout.trim();
                         await exec('mkdir -p ' + path, {}, channel);
                         await exec(`curl -L -o ${path}/enarx ${url}`, {}, channel);
+                        await exec(`chmod +x ${path}/enarx`, {}, channel);
                         vscode.window.showInformationMessage(`Binary downloaded at: ${path}, add the directory [${path}] to the global PATH variable`);
                     } catch (e: any) {
                         let fail = true;
