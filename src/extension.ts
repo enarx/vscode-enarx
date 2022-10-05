@@ -5,8 +5,8 @@ import * as fs from 'fs';
 import { IValidationProvider } from './validationProvider/validationProvider';
 import { TomlValidationProvider } from './validationProvider/tomlValidationProvider';
 import { ICodexProvider } from './CodexProvider/codexProvider';
-import { GithubCodexProvider } from './CodexProvider/GithubCodexProvider';
-import { ENARX_TOML_EXAMPLE } from './EnarxTomlExample';
+import { GithubCodexProvider } from './CodexProvider/githubCodexProvider';
+import { ENARX_TOML_EXAMPLE } from './enarxTomlExample';
 import { GithubRepoReleaseResponse } from './githubApiDAO';
 import axios from 'axios';
 
