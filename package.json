@@ -30,6 +30,21 @@
       {
         "command": "vscode-enarx.codexPull",
         "title": "Enarx: Pull Code from Codex"
+      },
+      {
+        "command": "vscode-enarx.drawbridgeLogin",
+        "title": "Enarx: Login to Drawbridge",
+        "when": "workspaceContains:**/Enarx.toml"
+      },
+      {
+        "command": "vscode-enarx.enarxCliInstall",
+        "title": "Enarx: Install Enarx CLI",
+        "when": "workspaceContains:**/Enarx.toml"
+      },
+      {
+        "command": "vscode-enarx.enarxCliUpdateLatestRelease",
+        "title": "Enarx: Check latest release for Enarx CLI",
+        "when": "workspaceContains:**/Enarx.toml"
       }
     ]
   },
@@ -64,6 +79,7 @@
     "@apideck/better-ajv-errors": "^0.3.6",
     "ajv": "^8",
     "axios": "^0.27.2",
+    "openid-client": "^5.2.1",
     "toml": "^3.0.0"
   }
 }

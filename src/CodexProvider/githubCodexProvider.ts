@@ -20,7 +20,7 @@ interface APIReponseStructure {
 export class GithubCodexProvider implements ICodexProvider {
     async getCodexRepos(): Promise<string[]> {
         let result =  await axios.get('https://api.github.com/repos/enarx/codex/git/trees/main?recursive=true&truncated=false');
-        if (result.status!== 200){
+        if (result.status !== 200){
             return [];
         } else {
             try {
