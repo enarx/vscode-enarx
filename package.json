@@ -45,6 +45,10 @@
         "command": "vscode-enarx.enarxCliUpdateLatestRelease",
         "title": "Enarx: Check latest release for Enarx CLI",
         "when": "workspaceContains:**/Enarx.toml"
+      },
+      {
+        "command": "vscode-enarx.setupWasmTools",
+        "title": "Enarx: Install WASM tools"
       }
     ]
   },

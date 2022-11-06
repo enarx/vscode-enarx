@@ -7,6 +7,7 @@ import { DrawbridgeAdapter } from './DrawbridgeAdapter/drawbridgeAdapter';
 import drawbridgeLoginCmdFactory from './cmd/drawbridgeLoginCmd';
 import enarxCliInstallCmdFactory from './cmd/enarxCliInstallCmd';
 import enarxCliUpdateLatestReleaseCmdFactory from './cmd/enarxCliUpdateLatestRelease';
+import setupWasmToolsCmdFactory from './cmd/setupWASMTools';
 
 export async function activate(context: vscode.ExtensionContext) {
 	vscode.window.showInformationMessage('Enarx entension activated');
@@ -40,6 +41,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	enarx.installEnarxProceedure();
 
 	context.subscriptions.push(
+		setupWasmToolsCmdFactory(),
 		enarxCliUpdateLatestReleaseCmdFactory(enarx),
 		enarxCliInstallCmdFactory(enarx),
 		scafoldEnarxTomlCmdFactory(),
