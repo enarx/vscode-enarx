@@ -1,5 +1,4 @@
-export let ENARX_TOML_EXAMPLE = `
-# Configuration for a WASI application in an Enarx Keep
+export const ENARX_TOML_EXAMPLE = `# Configuration for a WASI application in an Enarx Keep
 
 # Arguments
 args = [

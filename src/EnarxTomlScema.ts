@@ -1,7 +1,7 @@
-export let ENARX_TOML_SCHEMA_DEFINITION = {
+export const ENARX_TOML_SCHEMA_DEFINITION = {
     type: "object",
     properties: {
-        steward: { type: "string", pattern: "(http|https)://[a-z\-A-Z0-9].[a-z\-A-Z0-9] .[a-zA-Z0-9]" },
+        steward: { type: "string", pattern: "(http|https):\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}" },
         args: { type: "array", items: { type: "string" } },
         env: { type: "object", additionalProperties: { "type": "string" } },
         files: {

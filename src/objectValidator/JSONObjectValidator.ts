@@ -1,5 +1,5 @@
 import ajv from "ajv";
-import { ENARX_TOML_SCHEMA_DEFINITION } from "../EnarxTomlScema";
+import { ENARX_TOML_SCHEMA_DEFINITION } from "../enarxTomlScema";
 import { IObjectValidator } from "./objectValidator";
 import {betterAjvErrors} from '@apideck/better-ajv-errors';
 import {JSONSchema6} from 'json-schema';
