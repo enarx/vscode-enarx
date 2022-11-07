@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import { ENARX_TOML_EXAMPLE } from '../enarxTomlExample';
+import { ENARX_TOML_EXAMPLE } from '../EnarxTomlExample';
 
 export default function scafoldEnarxTomlCmdFactory(): vscode.Disposable {
     return vscode.commands.registerCommand('vscode-enarx.scafoldEnarxToml', () => {
