@@ -23,7 +23,7 @@ export default function enarxPullCodexCmdFactory(channel : vscode.OutputChannel)
                 vscode.window.showInformationMessage("Pulling code for: " + selectedRepo.label);
                 try {
                     const path = `/tmp/${makeid(20)}`;
-                    const commandToExtract = `curl https://codeload.github.com/enarx/codex/tar.gz/refs/heads/main | tar -zx --directory ${path} ./codex-main/${selectedRepo.label}`;
+                    const commandToExtract = `curl https://codeload.github.com/enarx/codex/tar.gz/refs/heads/main | tar -zx --directory ${path} codex-main/${selectedRepo.label}`;
                     await exec('mkdir -p ' + path, {}, channel);
                     await exec(commandToExtract, {}, channel);
                     await exec(`rsync -a ${path}/codex-main/${selectedRepo.label}/* ${vscode.workspace.workspaceFolders[0].uri.fsPath}`, {}, channel);
