@@ -23,6 +23,11 @@
         "title": "Enarx: Create Enarx.toml"
       },
       {
+        "command": "vscode-enarx.runWasmOnEnarx",
+        "title": "Enarx: Run wasm workload on enarx",
+        "when": "workspaceContains:**/Enarx.toml"
+      },
+      {
         "command": "vscode-enarx.enarxTomlValidation",
         "title": "Enarx: Validate Enarx Toml",
         "when": "workspaceContains:**/Enarx.toml"

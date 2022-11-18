@@ -202,6 +202,33 @@ export class EnarxCliAdapter {
                 }
             }
         }
-    
+
+    }
+
+    async runWasm(pathWasm: string, pathEnarxToml: string) {
+        let out = vscode.window.createOutputChannel('Enarx Run Output');
+        out.show();
+        try {
+            await exec(`enarx run --wasmcfgfile ${pathEnarxToml} ${pathWasm}`, {}, out);
+            let ch = await vscode.window.showQuickPick(['Close output and exit', 'exit']);
+            if (ch === 'Close output and exit') {
+                out.clear();
+                out.hide();
+                out.dispose();
+            }
+        } catch (e: any) {
+            let err = e.error;
+            let message: string = "Oops! an unexpected error occured, you can run the WASM workload on drawbridge or run manually.";
+            if (err?.hasOwnProperty('code') && isFinite(err?.code) && err?.code === 127 && (process.platform === 'linux' || process.platform === 'darwin')) {
+                message = 'enarx is not installed! You can run the WASM workload on drawbridge or install enarx and run again.';
+            }
+            let selection = await vscode.window.showErrorMessage(message, 'Open Drawbridge', 'Run Manually');
+            if (selection !== null && selection === 'Open Drawbridge') {
+                vscode.env.openExternal(vscode.Uri.parse(`https://snp.equinix.try.enarx.dev/upload`));
+            } else if (selection === 'Run Manually') {
+                vscode.env.openExternal(vscode.Uri.parse(`https://enarx.dev/docs/Quickstart`));
+            }
+            out.dispose();
+        }
     }
 }
